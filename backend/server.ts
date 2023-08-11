@@ -1,6 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import connectDB from "./config/db";
+
+const db = await connectDB();
+
+const arr = await db?.collection("users").find().toArray();
+
+arr?.forEach((user) => console.log(user));
 
 dotenv.config();
 
