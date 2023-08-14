@@ -1,10 +1,20 @@
 import express from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import mongodb from "mongodb";
+import mongodb, { Timestamp } from "mongodb";
 import asyncHandler from "express-async-handler";
 
 dotenv.config();
+
+/**
+ * {
+ *  id: string/number (autoincrement?)
+ *  username: string
+ *  email: string
+ *  password: string
+ *  movies: Array<string>
+ * }
+ */
 
 export const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
@@ -17,6 +27,8 @@ export const registerUser = asyncHandler(async (req, res) => {
   res.status(201).json({
     username,
     email,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 });
 

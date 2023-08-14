@@ -4,25 +4,31 @@ import mongodb, { MongoClient } from "mongodb";
 
 dotenv.config();
 
+const URI = process.env.MONGO_URI || "";
+
+const client = new MongoClient(URI, {
+  serverApi: {
+    version: mongodb.ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+let db: mongodb.Db;
+
 const connectDB = async () => {
+  if (db) {
+    console.log(
+      colors.magenta.underline(`Already connected to DB: ${db.namespace}`)
+    );
+    return db;
+  }
   try {
-    if (process.env.MONGO_URI) {
-      const URI = process.env.MONGO_URI;
+    db = client.db("movies");
 
-      const client = new MongoClient(URI, {
-        serverApi: {
-          version: mongodb.ServerApiVersion.v1,
-          strict: true,
-          deprecationErrors: true,
-        },
-      });
+    console.log(colors.magenta.underline(`Connected to DB: ${db.namespace}`));
 
-      const db = await client.db("movies");
-
-      console.log(colors.magenta.underline(`Connected to DB: ${db.namespace}`));
-
-      return db;
-    }
+    return db;
   } catch (e) {
     console.log(e);
     process.exit(1);

@@ -3,12 +3,14 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db";
 import userRoutes from "./routes/userRoutes";
+import listRoutes from "./routes/listRoutes";
+import { errorHandler } from "./middleware/errorMiddleware";
 
 const db = await connectDB();
 
-const arr = await db?.collection("users").find().toArray();
-
-arr?.forEach((user) => console.log(user));
+if (!db) {
+  throw new Error("Cannot connect to database!");
+}
 
 dotenv.config();
 
@@ -26,7 +28,9 @@ app.use(express.urlencoded({ extended: false }));
 // });
 
 app.use("/api/users", userRoutes);
-// app.use("/api/lists");
+app.use("/api/lists", listRoutes);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
