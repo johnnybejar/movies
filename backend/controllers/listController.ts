@@ -50,6 +50,8 @@ export const createList = asyncHandler(async (req, res) => {
     list_name: listName,
     list_description: listDescription,
     movies,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   const result = await listCollection?.insertOne(doc);
@@ -61,6 +63,7 @@ export const createList = asyncHandler(async (req, res) => {
   }
 
   res.status(201).json({
+    id: result.insertedId,
     listName,
     listDescription,
     movies,
@@ -69,7 +72,48 @@ export const createList = asyncHandler(async (req, res) => {
   });
 });
 
-export const updateList = asyncHandler(async (req, res) => {});
+export const updateList = asyncHandler(async (req, res) => {
+  const listName = req.body.listName;
+  const listDescription = req.body.listDescription;
+  const movies: Array<string> = req.body.movies;
+
+  if (!movies) {
+    res.status(400);
+    throw new Error("Please add at least one film");
+  }
+
+  if (!listName) {
+    res.status(400);
+    throw new Error("Please give the list a name");
+  }
+
+  const updatedDoc = {
+    user_id: "guajvuiasduiwe",
+    list_name: listName,
+    list_description: listDescription,
+    movies,
+  };
+
+  const result = await listCollection.findOneAndUpdate(
+    { _id: new ObjectId(req.params.id) },
+    {
+      $set: {
+        list_name: listName,
+        list_description: listDescription,
+        movies,
+        updatedAt: new Date(),
+      },
+    }
+  );
+
+  console.log(result);
+
+  if (!result.lastErrorObject?.updatedExisting) {
+    res.status(400).json({ result });
+  } else {
+    res.status(200).json({ updatedDoc, result });
+  }
+});
 
 export const deleteList = asyncHandler(async (req, res) => {
   const result = await listCollection.findOneAndDelete({
