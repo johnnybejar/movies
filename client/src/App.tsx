@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <div className="w-full">
           <Header />
-          <div className="m-3">
+          <div className="flex items-center justify-center flex-col gap-3 m-4">
             <Routes>
               <Route path="/" element={<Lists />}></Route>
               <Route path="/login" element={<Login />}></Route>
