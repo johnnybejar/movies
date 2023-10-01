@@ -6,9 +6,9 @@ import asyncHandler from "express-async-handler";
 /**
  * {
  *  id: string/number (autoincrement?)
- *  userid: string
- *  listName: string
- *  description: string
+ *  user_id: string
+ *  list_name: string
+ *  list_description: string
  *  movies: Array<string>
  * }
  */
@@ -17,7 +17,9 @@ const db = await connectDB();
 const listCollection = db?.collection("lists");
 
 export const getLists = asyncHandler(async (req, res) => {
-  const cursor = listCollection.find({});
+  const cursor = listCollection.find({
+    user_id: new ObjectId(req.user?._id),
+  });
 
   const results = await cursor.toArray();
 
@@ -46,7 +48,7 @@ export const createList = asyncHandler(async (req, res) => {
   }
 
   const doc = {
-    user_id: "guajvuiasduiwe",
+    user_id: req.user?._id,
     list_name: listName,
     list_description: listDescription,
     movies,
@@ -87,13 +89,6 @@ export const updateList = asyncHandler(async (req, res) => {
     throw new Error("Please give the list a name");
   }
 
-  const updatedDoc = {
-    user_id: "guajvuiasduiwe",
-    list_name: listName,
-    list_description: listDescription,
-    movies,
-  };
-
   const result = await listCollection.findOneAndUpdate(
     { _id: new ObjectId(req.params.id) },
     {
@@ -111,7 +106,7 @@ export const updateList = asyncHandler(async (req, res) => {
   if (!result.lastErrorObject?.updatedExisting) {
     res.status(400).json({ result });
   } else {
-    res.status(200).json({ updatedDoc, result });
+    res.status(200).json({ result });
   }
 });
 

@@ -5,10 +5,11 @@ import {
   updateList,
   deleteList,
 } from "../controllers/listController";
+import { protect } from "../middleware/authMiddleware";
 
 const router = express.Router();
 
-router.route("/").get(getLists).post(createList);
-router.route("/:id").post(updateList).delete(deleteList);
+router.route("/").get(protect, getLists).post(protect, createList);
+router.route("/:id").post(protect, updateList).delete(protect, deleteList);
 
 export default router;
