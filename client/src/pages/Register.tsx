@@ -44,6 +44,9 @@ function Register() {
           type="text"
           placeholder="Confirm your password"
         />
+        <button className="rounded bg-white py-2.5 px-20 font-bold transition hover:bg-gray-500">
+          Register
+        </button>
       </form>
     </>
   );
