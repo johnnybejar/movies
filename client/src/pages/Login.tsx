@@ -27,7 +27,7 @@ function Login() {
     }));
   };
 
-  const onLogin = (e: any) => {
+  const onLogin = (e: React.MouseEvent) => {
     e.preventDefault();
 
     const userData: UserData = {
@@ -36,10 +36,10 @@ function Login() {
     };
 
     const res = authService.login(userData);
-    // Redirects depends on the response from the server
+
     res.then((res) => {
       if (res.token) {
-        // 200 OK - we can redirect the user to their lists page
+        // 200 OK - we can setAuth and redirect the user to their lists page
         setAuth({ email: res.email, token: res.token });
         navigate("/");
       } else {
@@ -76,7 +76,7 @@ function Login() {
           onChange={onChange}
         />
         <button
-          className="rounded bg-white py-2.5 px-20 font-bold transition hover:bg-gray-500"
+          className="rounded bg-white py-2.5 px-20 font-bold transition hover:bg-gray-400"
           onClick={onLogin}
         >
           Login

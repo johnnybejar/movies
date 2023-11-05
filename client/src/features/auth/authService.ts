@@ -5,13 +5,19 @@ interface User {
   password: string;
 }
 
+interface RegisterUser {
+  username: string;
+  email: string;
+  password: string;
+}
+
 const API_URL = "api/users";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:5000",
 });
 
-const register = async (userData: User) => {
+const register = async (userData: RegisterUser) => {
   const response = await axiosClient.post(API_URL, userData);
 
   if (response.data) {
