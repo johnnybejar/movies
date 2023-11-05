@@ -3,11 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { useAuth } from "../features/AuthProvider";
 import authService from "../features/auth/authService";
+import axios, { AxiosError } from "axios";
 
 interface RegisterData {
   username: string;
   email: string;
   password: string;
+}
+
+interface IAxiosError extends AxiosError {
+  message: string;
+  stack: string;
 }
 
 function Register() {
@@ -17,6 +23,7 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState("");
   const { setAuth } = useAuth();
   const { username, email, password, confirmPassword } = formData;
   const navigate = useNavigate();
@@ -32,6 +39,21 @@ function Register() {
   const onRegister = (e: React.MouseEvent) => {
     e.preventDefault();
 
+    if (
+      !username.length ||
+      !email.length ||
+      !password.length ||
+      !confirmPassword.length
+    ) {
+      setError("Please fill in ALL fields!");
+      return;
+    }
+
+    if (password != confirmPassword) {
+      setError("Passwords do not match!");
+      return;
+    }
+
     const userData: RegisterData = {
       username,
       email,
@@ -40,14 +62,23 @@ function Register() {
 
     const res = authService.register(userData);
 
-    res.then((res) => {
-      if (res.token) {
+    res
+      .then((res) => {
         // 200 OK - we can setAuth and redirect the user to their lists page
         setAuth({ email: res.email, token: res.token });
         navigate("/");
-      } else {
-      }
-    });
+      })
+      .catch((err: IAxiosError) => {
+        console.log(err);
+        if (
+          axios.isAxiosError<IAxiosError, Record<string, unknown>>(err) &&
+          err.response.data.message == "User already exists"
+        ) {
+          setError("This email is taken! Try another or check for typos.");
+        } else {
+          setError("Invalid credentials! Try again.");
+        }
+      });
   };
 
   return (
@@ -56,9 +87,14 @@ function Register() {
         <FaUser size={70} />
         <h1 className="text-7xl">Register</h1>
       </div>
-      <span className="text-3xl my-4 text-slate-400 font-bold">
+      <span className="text-3xl my-1 text-slate-400 font-bold">
         Create an Account
       </span>
+      {error ? (
+        <span className="text-2xl mb-2 text-red-600 font-bold">{error}</span>
+      ) : (
+        <></>
+      )}
       <form className="flex items-center justify-center flex-col gap-4 text-black">
         <input
           className="rounded h-10 p-2"

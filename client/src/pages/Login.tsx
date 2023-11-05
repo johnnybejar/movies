@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import authService from "../features/auth/authService";
 import { useAuth } from "../features/AuthProvider";
+import { AxiosError } from "axios";
 
 interface UserData {
   email: string;
@@ -14,9 +15,9 @@ function Login() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
   const { email, password } = formData;
   const { setAuth } = useAuth();
-
   const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent) => {
@@ -30,6 +31,11 @@ function Login() {
   const onLogin = (e: React.MouseEvent) => {
     e.preventDefault();
 
+    if (!email.length || !password.length) {
+      setError("Please enter an email AND password!");
+      return;
+    }
+
     const userData: UserData = {
       email,
       password,
@@ -37,14 +43,15 @@ function Login() {
 
     const res = authService.login(userData);
 
-    res.then((res) => {
-      if (res.token) {
+    res
+      .then((res) => {
         // 200 OK - we can setAuth and redirect the user to their lists page
         setAuth({ email: res.email, token: res.token });
         navigate("/");
-      } else {
-      }
-    });
+      })
+      .catch((err: AxiosError) => {
+        setError("Invalid credentials! Try again.");
+      });
   };
 
   return (
@@ -53,9 +60,14 @@ function Login() {
         <FaSignInAlt size={70} />
         <h1 className="text-7xl">Login</h1>
       </div>
-      <h1 className="text-3xl my-4 text-slate-400 font-bold">
+      <h1 className="text-3xl my-1 text-slate-400 font-bold">
         Login to access your lists
       </h1>
+      {error ? (
+        <span className="text-2xl mb-2 text-red-600 font-bold">{error}</span>
+      ) : (
+        <></>
+      )}
       <form className="flex items-center justify-center flex-col gap-4 text-black">
         <input
           className="rounded h-10 p-2"
