@@ -12,10 +12,8 @@ const axiosClient = axios.create({
 });
 
 const register = async (userData: User) => {
-  console.log(userData);
-
   const response = await axiosClient.post(API_URL, userData);
-  console.log(`Response: ${JSON.stringify(response)}`);
+
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
@@ -24,9 +22,8 @@ const register = async (userData: User) => {
 };
 
 const login = async (userData: User) => {
-  console.log(userData);
   const response = await axiosClient.post(API_URL + "/login", userData);
-  console.log(`Response: ${JSON.stringify}`);
+
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
