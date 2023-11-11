@@ -4,9 +4,13 @@ import App from "./App.tsx";
 import { AuthProvider } from "./features/AuthProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  </React.StrictMode>
+  // StrictMode causes re-renders which makes unnecessary db calls
+  // <React.StrictMode>
+  //   <AuthProvider>
+  //     <App />
+  //   </AuthProvider>
+  // </React.StrictMode>
+  <AuthProvider>
+    <App />
+  </AuthProvider>
 );
