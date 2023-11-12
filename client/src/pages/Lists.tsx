@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import listsService from "../features/lists/listsService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Movie {
   _id: string;
@@ -13,7 +13,6 @@ interface Movie {
 }
 
 function Lists() {
-  const [search, setSearch] = useState<string>("");
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const navigate = useNavigate();
 
@@ -39,7 +38,7 @@ function Lists() {
     <>
       <div className="">
         <button className=" bg-slate-300 text-black rounded p-2 font-bold hover:bg-slate-400 transition-all">
-          Create a List
+          <Link to="/create">Create a list</Link>
         </button>
       </div>
       <div className="flex flex-wrap">

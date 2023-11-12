@@ -4,6 +4,7 @@ import Lists from "./pages/Lists";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "./index.css";
+import ListCreator from "./pages/ListCreator";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
               <Route path="/" element={<Lists />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/register" element={<Register />}></Route>
+              <Route path="/create" element={<ListCreator />}></Route>
             </Routes>
           </div>
         </div>
