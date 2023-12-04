@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import authService from "../features/auth/authService";
-import { useAuth } from "../features/AuthProvider";
+import { useAuth } from "../features/auth/AuthProvider";
 import { AxiosError } from "axios";
 
 interface UserData {
