@@ -17,9 +17,7 @@ function Lists() {
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const navigate = useNavigate();
 
-  // useLayoutEffect is similar to useEffect, but will execute this
-  // block before the page is rendered
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Redirect user to login, if they are not authenticated
     if (!localStorage.getItem("user")) {
       navigate("/login");
