@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import listsService from "../features/lists/listsService";
 import { Link, useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 interface Movie {
   _id: string;
@@ -16,7 +17,9 @@ function Lists() {
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  // useLayoutEffect is similar to useEffect, but will execute this
+  // block before the page is rendered
+  useLayoutEffect(() => {
     // Redirect user to login, if they are not authenticated
     if (!localStorage.getItem("user")) {
       navigate("/login");
@@ -30,7 +33,13 @@ function Lists() {
         .then((lists: Array<Movie>) => {
           setMovies(lists);
         })
-        .catch(() => {});
+        .catch((err: AxiosError) => {
+          // If the user is not authorized or the token is invalid/expired
+          if (err.response.status == 401) {
+            localStorage.removeItem("user");
+            navigate("/login");
+          }
+        });
     }
   }, []);
 

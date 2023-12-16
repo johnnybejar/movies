@@ -44,7 +44,6 @@ export const protect = asyncHandler(
 
         next();
       } catch (e) {
-        console.log(e);
         res.status(401);
         throw new Error("Not authorized");
       }

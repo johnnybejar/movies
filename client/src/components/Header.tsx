@@ -22,9 +22,6 @@ function Header() {
         <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
           <Link to="/">Lists</Link>
         </li>
-        <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
-          <Link to="/create">Create</Link>
-        </li>
         {localStorage.getItem("user") ? (
           <>
             <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
