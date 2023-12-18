@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import searchMovie from "../features/lists/searchService";
+import { Search } from "../types/search";
+import { Movie } from "../types/movie";
 
 function ListCreator() {
+  const [list, setList] = useState([]);
+  const [results, setResults] = useState([]);
   const [search, setSearch] = useState<string>("");
-  const [results, setResults] = useState({});
 
-  function searchResults() {
-    const res = searchMovie(search);
-    console.log(res);
+  async function getSearchResults() {
+    const res: Search = await searchMovie(search);
+    console.log(res.results);
+    setResults(res.results);
   }
 
   const onChange = (e: React.ChangeEvent) => {
@@ -26,14 +30,20 @@ function ListCreator() {
           value={search}
           placeholder="Search for a movie"
           onChange={onChange}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              getSearchResults();
+            }
+          }}
         ></input>
         <button
           className="bg-white text-black rounded-sm px-4 hover:bg-gray-300 transition-all"
-          onSubmit={searchResults}
+          onClick={getSearchResults}
         >
           Search
         </button>
       </div>
+      <div>{results ? <>stuff</> : <>nothing</>}</div>
     </>
   );
 }
