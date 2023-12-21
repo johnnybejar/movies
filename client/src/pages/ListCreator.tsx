@@ -13,7 +13,9 @@ function ListCreator() {
   const imgBaseUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/";
 
   // Updates the list when addToList is called
-  useEffect(() => {}, [list]);
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
 
   async function getSearchResults() {
     // Clears results in case it is already set
@@ -77,7 +79,7 @@ function ListCreator() {
         </button>
       </div>
       <div className="flex gap-2 flex-wrap w-3/4 justify-center">
-        {results.map((movie, index) => {
+        {results.map((movie) => {
           return (
             <div
               key={movie.id}
@@ -91,9 +93,8 @@ function ListCreator() {
               />
               <span className="w-44 text-center">
                 {/* puts the original title in parenthesis after, usually for foreign films */}
-                {movie.title === movie.original_title
-                  ? movie.title
-                  : `${movie.title} (${movie.original_title})`}
+                {/* TODO: Handle titles that are extremely long */}
+                {`${movie.title} - ${movie.release_date.slice(0, 4)}`}
               </span>
             </div>
           );
@@ -104,11 +105,23 @@ function ListCreator() {
           <span>Add a film by searching for a movie!</span>
         ) : (
           list.map((movie) => {
-            return <MovieCard movie={movie} />;
+            return (
+              <div className="relative">
+                <MovieCard movie={movie} />
+                <button
+                  className="absolute top-2 right-2 border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
+                  onClick={() => {
+                    // Removes the item clicked on by using filter
+                    setList(list.filter((m) => m.id !== movie.id));
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
+            );
           })
         )}
       </div>
-      {/* <ToastContainer /> */}
     </>
   );
 }
