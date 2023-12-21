@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import Header from "./components/Header";
 import Lists from "./pages/Lists";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import "./index.css";
 import ListCreator from "./pages/ListCreator";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
+      <ToastContainer position="bottom-right" theme="dark" />
     </>
   );
 }

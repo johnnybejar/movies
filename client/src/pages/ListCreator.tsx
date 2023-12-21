@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import searchMovie from "../features/lists/searchService";
 import { Search } from "../types/search";
 import { Movie } from "../types/movie";
@@ -12,9 +13,7 @@ function ListCreator() {
   const imgBaseUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/";
 
   // Updates the list when addToList is called
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
+  useEffect(() => {}, [list]);
 
   async function getSearchResults() {
     // Clears results in case it is already set
@@ -32,9 +31,16 @@ function ListCreator() {
   }
 
   function addToList(movie: Movie) {
-    setList((oldArr) => [...oldArr, movie]);
-    setSearch("");
-    setResults([]);
+    // Checks if the movie is already in the list
+    if (list.filter((m) => m.id === movie.id).length > 0) {
+      toast.error("Movie is already in the list!");
+      setSearch("");
+      setResults([]);
+    } else {
+      setList((oldArr) => [...oldArr, movie]);
+      setSearch("");
+      setResults([]);
+    }
   }
 
   const onChange = (e: React.ChangeEvent) => {
@@ -102,6 +108,7 @@ function ListCreator() {
           })
         )}
       </div>
+      {/* <ToastContainer /> */}
     </>
   );
 }
