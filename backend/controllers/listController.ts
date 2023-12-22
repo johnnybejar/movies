@@ -1,8 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
-import mongodb, { ObjectId } from "mongodb";
+import mongodb, { ObjectId, OptionalId } from "mongodb";
 import connectDB from "../config/db";
 import asyncHandler from "express-async-handler";
+import { List } from "../types/list";
+import { Movie } from "../types/movie";
 /**
  * {
  *  id: string/number (autoincrement?)
@@ -14,16 +16,14 @@ import asyncHandler from "express-async-handler";
  */
 
 const db = await connectDB();
-const listCollection = db?.collection("lists");
+const listCollection = db?.collection<OptionalId<List>>("lists");
 
 export const getLists = asyncHandler(async (req, res) => {
   const cursor = listCollection.find({
     user_id: new ObjectId(req.user?._id),
   });
 
-  const results = await cursor.toArray();
-
-  console.log(results);
+  const results = (await cursor.toArray()) as List[];
 
   if (!results) {
     throw new Error("Error finding lists");
@@ -35,7 +35,7 @@ export const getLists = asyncHandler(async (req, res) => {
 export const createList = asyncHandler(async (req, res) => {
   const listName = req.body.listName;
   const listDescription = req.body.listDescription;
-  const movies: Array<string> = req.body.movies;
+  const movies: Movie[] = req.body.movies.map(JSON.parse);
 
   if (!movies) {
     res.status(400);
@@ -47,16 +47,14 @@ export const createList = asyncHandler(async (req, res) => {
     throw new Error("Please give the list a name");
   }
 
-  const doc = {
+  const result = await listCollection?.insertOne({
     user_id: req.user?._id,
     list_name: listName,
     list_description: listDescription,
     movies,
     createdAt: new Date(),
     updatedAt: new Date(),
-  };
-
-  const result = await listCollection?.insertOne(doc);
+  });
 
   if (result) {
     console.log(`A document was inserted with the _id: ${result?.insertedId}`);
@@ -77,7 +75,7 @@ export const createList = asyncHandler(async (req, res) => {
 export const updateList = asyncHandler(async (req, res) => {
   const listName = req.body.listName;
   const listDescription = req.body.listDescription;
-  const movies: Array<string> = req.body.movies;
+  const movies: Movie[] = req.body.movies.map(JSON.parse);
 
   if (!movies) {
     res.status(400);
@@ -100,8 +98,6 @@ export const updateList = asyncHandler(async (req, res) => {
       },
     }
   );
-
-  console.log(result);
 
   if (!result.lastErrorObject?.updatedExisting) {
     res.status(400).json({ result });
