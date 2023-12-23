@@ -7,6 +7,8 @@ import MovieCard from "../components/MovieCard";
 
 function ListCreator() {
   const [list, setList] = useState<Movie[]>([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [results, setResults] = useState<Movie[]>([]);
   const [search, setSearch] = useState("");
   const [isLoadingResults, setLoadingResults] = useState(false);
@@ -14,6 +16,7 @@ function ListCreator() {
 
   // Updates the list when addToList is called
   useEffect(() => {
+    // Logging testing purposes
     console.log(list);
   }, [list]);
 
@@ -26,6 +29,7 @@ function ListCreator() {
 
     res.then((r: Search) => {
       const movies: Movie[] = r.results as Movie[];
+      if (movies.length === 0) toast("No movies found...");
       setResults((oldArr) => [...oldArr, ...movies]);
     });
 
@@ -45,9 +49,9 @@ function ListCreator() {
     }
   }
 
-  const onChange = (e: React.ChangeEvent) => {
+  const onChange = (e: React.ChangeEvent, setter: Function) => {
     const element = e.currentTarget as HTMLInputElement;
-    setSearch(() => element.value);
+    setter(() => element.value);
   };
 
   if (isLoadingResults) {
@@ -56,27 +60,53 @@ function ListCreator() {
 
   return (
     <>
-      <div className="flex m-2 gap-1">
-        <input
-          className="rounded h-10 p-2 text-center text-black"
-          type="text"
-          id="search"
-          name="search"
-          value={search}
-          placeholder="Search for a movie"
-          onChange={onChange}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              getSearchResults();
-            }
-          }}
-        ></input>
-        <button
-          className="bg-white text-black rounded-sm px-4 hover:bg-gray-300 transition-all"
-          onClick={getSearchResults}
-        >
-          Search
-        </button>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-3xl">List Title</span>
+          <input
+            className="rounded h-10 p-2 text-center text-black"
+            type="text"
+            id="list-title"
+            name="list-title"
+            value={title}
+            onChange={(e) => onChange(e, setTitle)}
+          ></input>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-3xl">List Description</span>
+          <textarea
+            className="rounded w-96 h-24 p-1 max-h-48 min-h-12 text-black"
+            id="list-description"
+            name="list-description"
+            value={description}
+            onChange={(e) => onChange(e, setDescription)}
+          ></textarea>
+        </div>
+      </div>
+      <div className="flex flex-col items-center m-2 gap-1">
+        <span className="text-3xl">Movie Search</span>
+        <div className="flex gap-2">
+          <input
+            className="rounded h-10 p-2 text-center text-black"
+            type="text"
+            id="movie-search"
+            name="movie-search"
+            value={search}
+            placeholder="Search for a movie"
+            onChange={(e) => onChange(e, setSearch)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                getSearchResults();
+              }
+            }}
+          ></input>
+          <button
+            className="bg-white text-black rounded-sm px-4 hover:bg-gray-300 transition-all"
+            onClick={getSearchResults}
+          >
+            Search
+          </button>
+        </div>
       </div>
       <div className="flex gap-2 flex-wrap w-3/4 justify-center">
         {results.map((movie) => {

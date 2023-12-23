@@ -12,6 +12,9 @@ export default {
       6: "6px",
       8: "8px",
     },
+    minHeight: {
+      12: "48px",
+    },
   },
   plugins: [],
 };
