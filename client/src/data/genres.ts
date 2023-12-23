@@ -1,5 +1,3 @@
-import { Genre } from "../types/genre";
-
 export const genres: Map<number, string> = new Map([
   [28, "Action"],
   [12, "Adventure"],
