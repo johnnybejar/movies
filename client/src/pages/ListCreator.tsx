@@ -46,6 +46,7 @@ function ListCreator() {
       setList((oldArr) => [...oldArr, movie]);
       setSearch("");
       setResults([]);
+      toast.success(`Successfully added: ${movie.title}`);
     }
   }
 
@@ -132,7 +133,9 @@ function ListCreator() {
       </div>
       <div className="flex flex-col gap-2 w-1/2 max-w-3xl items-center">
         {list.length === 0 && results.length === 0 ? (
-          <span>Add a film by searching for a movie!</span>
+          <span className=" text-2xl">
+            Add a film by searching for a movie above!
+          </span>
         ) : (
           list.map((movie) => {
             return (
