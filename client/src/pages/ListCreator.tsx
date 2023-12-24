@@ -4,6 +4,8 @@ import searchMovie from "../features/lists/searchService";
 import { Search } from "../types/search";
 import { Movie } from "../types/movie";
 import MovieCard from "../components/MovieCard";
+import listsService from "../features/lists/listsService";
+import { useNavigate } from "react-router-dom";
 
 function ListCreator() {
   const [list, setList] = useState<Movie[]>([]);
@@ -14,11 +16,10 @@ function ListCreator() {
   const [isLoadingResults, setLoadingResults] = useState(false);
   const imgBaseUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/";
 
+  const navigate = useNavigate();
+
   // Updates the list when addToList is called
-  useEffect(() => {
-    // Logging testing purposes
-    console.log(list);
-  }, [list]);
+  useEffect(() => {}, [list]);
 
   async function getSearchResults() {
     // Clears results in case it is already set
@@ -50,6 +51,38 @@ function ListCreator() {
     }
   }
 
+  function createList() {
+    // Title must be set and list must not be empty
+    if (!title) {
+      toast.error("Please create a title for your list!");
+      return;
+    }
+
+    // Should be taken care in the disabled create list
+    // button but I'll put this here just in case
+    if (list.length === 0) {
+      toast.error("The list must not be empty!");
+      return;
+    }
+
+    const res = listsService.createList(
+      JSON.parse(localStorage.getItem("user")),
+      title,
+      description,
+      list
+    );
+
+    res
+      .then((v) => {
+        console.log(v);
+        toast.success(`List "${title}" successfully created!`);
+        navigate("/");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   const onChange = (e: React.ChangeEvent, setter: Function) => {
     const element = e.currentTarget as HTMLInputElement;
     setter(() => element.value);
@@ -65,7 +98,7 @@ function ListCreator() {
         <div className="flex flex-col items-center gap-1">
           <span className="text-3xl">List Title</span>
           <input
-            className="rounded h-10 p-2 text-center text-black"
+            className="rounded w-72 h-10 p-2 text-center text-black"
             type="text"
             id="list-title"
             name="list-title"
@@ -109,6 +142,21 @@ function ListCreator() {
           </button>
         </div>
       </div>
+      {list.length === 0 ? (
+        <button
+          className=" bg-gray-500 text-gray-900 rounded-sm py-2 px-4 cursor-default transition-all"
+          onClick={() => toast.error("The list must not be empty!")}
+        >
+          Create List
+        </button>
+      ) : (
+        <button
+          className="bg-white text-black rounded-sm py-2 px-4 hover:bg-gray-300 transition-all"
+          onClick={createList}
+        >
+          Create List
+        </button>
+      )}
       <div className="flex gap-2 flex-wrap w-3/4 justify-center">
         {results.map((movie) => {
           return (

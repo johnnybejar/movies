@@ -35,7 +35,7 @@ export const getLists = asyncHandler(async (req, res) => {
 export const createList = asyncHandler(async (req, res) => {
   const listName = req.body.listName;
   const listDescription = req.body.listDescription;
-  const movies: Movie[] = req.body.movies.map(JSON.parse);
+  const movies: Movie[] = req.body.movies;
 
   if (!movies) {
     res.status(400);
