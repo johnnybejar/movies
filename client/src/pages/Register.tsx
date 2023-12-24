@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
-import { useAuth } from "../features/auth/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 import authService from "../features/auth/authService";
 import axios, { AxiosError } from "axios";
 

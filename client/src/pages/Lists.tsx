@@ -2,8 +2,9 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import listsService from "../features/lists/listsService";
 import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
-interface Movie {
+interface List {
   _id: string;
   createdAt: string;
   list_description: string;
@@ -14,12 +15,13 @@ interface Movie {
 }
 
 function Lists() {
-  const [movies, setMovies] = useState<Array<Movie>>([]);
+  const [lists, setLists] = useState<Array<List>>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     // Redirect user to login, if they are not authenticated
     if (!localStorage.getItem("user")) {
+      toast.error("You must be logged in to view lists!");
       navigate("/login");
     } else {
       // User is authenticated, so we get their lists
@@ -28,8 +30,8 @@ function Lists() {
       );
 
       lists
-        .then((lists: Array<Movie>) => {
-          setMovies(lists);
+        .then((lists: Array<List>) => {
+          setLists(lists);
         })
         .catch((err: AxiosError) => {
           // If the user is not authorized or the token is invalid/expired
@@ -50,23 +52,24 @@ function Lists() {
       </div>
       <div className="flex flex-wrap">
         <div className="flex flex-col items-center gap-3">
-          {movies.map((movie) => {
+          {lists.map((list, index) => {
             return (
-              <div
-                key={movie._id}
-                className="flex flex-col p-2 border rounded-md min-w-full hover:scale-105 transition-all"
+              <Link
+                to={{ pathname: `list/${list._id}` }}
+                key={list._id}
+                className="flex flex-col bg-slate-700 p-2 border rounded-md min-w-full hover:scale-105 transition-all cursor-pointer"
               >
-                <h3 className=" text-2xl">{movie.list_name}</h3>
-                <span className=" text-gray-400">
-                  {movie.movies.length} movies
+                <h3 className=" text-2xl">{list.list_name}</h3>
+                <span className=" text-gray-300">
+                  {list.movies.length} movies
                 </span>
-                <span className=" text-gray-400">
-                  Created:
-                  {new Date(movie.createdAt).toString().substring(3, 15)} |
+                <span className=" text-gray-300">
+                  {`Created:
+                  ${new Date(list.createdAt).toString().substring(3, 15)} |
                   Updated:
-                  {new Date(movie.updatedAt).toString().substring(3, 15)}
+                  ${new Date(list.updatedAt).toString().substring(3, 15)}`}
                 </span>
-              </div>
+              </Link>
             );
           })}
         </div>

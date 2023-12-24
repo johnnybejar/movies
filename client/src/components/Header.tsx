@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import authService from "../features/auth/authService";
 import { useEffect, useContext } from "react";
-import { useAuth } from "../features/auth/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 
 function Header() {
   const { auth, setAuth } = useAuth();
