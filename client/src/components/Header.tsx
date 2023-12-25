@@ -16,7 +16,7 @@ function Header() {
   return (
     <div className="flex justify-center items-center h-32 border-b border-b-slate-900 bg-slate-900">
       <Link to="/" className="flex items-center gap-1 mr-auto">
-        <img src="./public/assets/movie-icon.png" className=" max-h-20" />
+        <img src="./assets/movie-icon.png" className=" max-h-20" />
         <span className="font-bold text-5xl mr-auto">Film Docket</span>
       </Link>
       <ul className="flex gap-20 mr-4">
