@@ -3,6 +3,7 @@ import listsService from "../features/lists/listsService";
 import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { useList } from "../context/ListProvider";
 
 interface List {
   _id: string;
@@ -16,6 +17,7 @@ interface List {
 
 function Lists() {
   const [lists, setLists] = useState<Array<List>>([]);
+  const { setMovies } = useList();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,6 +60,12 @@ function Lists() {
                 to={{ pathname: `list/${list._id}` }}
                 key={list._id}
                 className="flex flex-col bg-slate-700 p-2 border rounded-md min-w-full hover:scale-105 transition-all cursor-pointer"
+                onClick={() => {
+                  // Won't have to worry about resetting this context later as
+                  // its only used to render already made lists and each
+                  // time a list is clicked on, it gets updated automatically
+                  setMovies(list);
+                }}
               >
                 <h3 className=" text-2xl">{list.list_name}</h3>
                 <span className=" text-gray-300">
