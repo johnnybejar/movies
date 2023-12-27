@@ -45,7 +45,16 @@ async function createList(
 
 function updateList() {}
 
-function deleteList() {}
+async function deleteList(userToken: UserToken, id: string) {
+  const response = await axiosClient.delete(API_URL + `/${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + userToken.token,
+    },
+  });
+
+  return response.data;
+}
 
 const listsService = {
   getLists,
