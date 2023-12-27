@@ -57,7 +57,7 @@ function Lists() {
           {lists.map((list, index) => {
             return (
               <Link
-                to={{ pathname: `list/${list._id}` }}
+                to={{ pathname: `/list`, search: "?id=" + list._id }}
                 key={list._id}
                 className="flex flex-col bg-slate-700 p-2 border rounded-md min-w-full hover:scale-105 transition-all cursor-pointer"
                 onClick={() => {

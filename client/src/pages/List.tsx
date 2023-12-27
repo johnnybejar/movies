@@ -1,9 +1,17 @@
 import React from "react";
 import { useList } from "../context/ListProvider";
 import MovieCard from "../components/MovieCard";
+import PageNotFound from "./PageNotFound";
 
 function List() {
   const { movies } = useList();
+  const queryParameters = new URLSearchParams(window.location.search);
+
+  // Check to make sure the context is set and
+  // the query params match with the id in the context
+  if (!movies.movies || queryParameters.get("id") !== movies._id) {
+    return <PageNotFound />;
+  }
 
   return (
     <div className="flex flex-col items-center gap-2">

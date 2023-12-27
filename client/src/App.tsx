@@ -10,6 +10,7 @@ import "./index.css";
 import List from "./pages/List";
 import { createContext } from "react";
 import { ListProvider } from "./context/ListProvider";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   const ListContext = createContext<unknown>({});
@@ -26,7 +27,8 @@ function App() {
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<Register />}></Route>
                 <Route path="/create" element={<ListCreator />}></Route>
-                <Route path="/list/:id" element={<List />}></Route>
+                <Route path="/list" element={<List />}></Route>
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </div>
           </ListProvider>
