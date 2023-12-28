@@ -5,6 +5,7 @@ import listsService from "../features/lists/listsService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ListType } from "../types/list";
+import { MoonLoader } from "react-spinners";
 
 function List() {
   const [movies, setMovies] = useState<ListType>({ _id: "" });
@@ -24,8 +25,8 @@ function List() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
+        console.log(err);
       });
   }, []);
 
@@ -60,7 +61,7 @@ function List() {
   }
 
   if (loading) {
-    return <>loading...</>;
+    return <MoonLoader color="white" size={120} />;
   }
 
   // Check if the list was not set and the id in the

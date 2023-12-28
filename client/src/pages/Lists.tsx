@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { ListType } from "../types/list";
+import { MoonLoader } from "react-spinners";
 
 function Lists() {
   const [lists, setLists] = useState<ListType[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,16 +25,30 @@ function Lists() {
       lists
         .then((lists: ListType[]) => {
           setLists(lists);
+          setLoading(false);
         })
         .catch((err: AxiosError) => {
           // If the user is not authorized or the token is invalid/expired
           if (err.response.status == 401) {
             localStorage.removeItem("user");
             navigate("/login");
+            setLoading(false);
           }
         });
     }
   }, []);
+
+  if (loading) {
+    return <MoonLoader color="white" size={120} />;
+  }
+
+  if (!loading && lists.length === 0) {
+    return (
+      <span className="text-3xl">
+        You don't have any lists! Click the button above to create one!
+      </span>
+    );
+  }
 
   return (
     <>
