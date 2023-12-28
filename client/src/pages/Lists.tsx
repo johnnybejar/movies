@@ -3,21 +3,10 @@ import listsService from "../features/lists/listsService";
 import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { useList } from "../context/ListProvider";
-
-interface List {
-  _id: string;
-  createdAt: string;
-  list_description: string;
-  list_name: string;
-  movies: Array<string>;
-  updatedAt: string;
-  user_id: string;
-}
+import { ListType } from "../types/list";
 
 function Lists() {
-  const [lists, setLists] = useState<Array<List>>([]);
-  const { setMovies } = useList();
+  const [lists, setLists] = useState<ListType[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +21,7 @@ function Lists() {
       );
 
       lists
-        .then((lists: Array<List>) => {
+        .then((lists: ListType[]) => {
           setLists(lists);
         })
         .catch((err: AxiosError) => {
@@ -60,12 +49,6 @@ function Lists() {
                 to={{ pathname: `/list`, search: "?id=" + list._id }}
                 key={list._id}
                 className="flex flex-col bg-slate-700 p-2 border rounded-md min-w-full hover:scale-105 transition-all cursor-pointer"
-                onClick={() => {
-                  // Won't have to worry about resetting this context later as
-                  // its only used to render already made lists and each
-                  // time a list is clicked on, it gets updated automatically
-                  setMovies(list);
-                }}
               >
                 <h3 className=" text-2xl">{list.list_name}</h3>
                 <span className=" text-gray-300">

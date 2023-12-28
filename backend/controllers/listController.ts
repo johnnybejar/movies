@@ -32,6 +32,19 @@ export const getLists = asyncHandler(async (req, res) => {
   res.status(200).json(results);
 });
 
+export const getList = asyncHandler(async (req, res) => {
+  const results = await listCollection.findOne({
+    user_id: new ObjectId(req.user?._id),
+    _id: new ObjectId(req.params.id),
+  });
+
+  if (!results) {
+    throw new Error("Error finding lists");
+  }
+
+  res.status(200).json(results);
+});
+
 export const createList = asyncHandler(async (req, res) => {
   const listName = req.body.listName;
   const listDescription = req.body.listDescription;

@@ -12,6 +12,17 @@ const axiosClient = axios.create({
   baseURL: "http://localhost:5000",
 });
 
+async function getList(userToken: UserToken, id: string) {
+  const response = await axiosClient.get(API_URL + `/${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + userToken.token,
+    },
+  });
+
+  return response.data;
+}
+
 async function getLists(userToken: UserToken) {
   const response = await axiosClient.get(API_URL, {
     headers: {
@@ -43,7 +54,16 @@ async function createList(
   return response.data;
 }
 
-function updateList() {}
+async function updateList(userToken: UserToken, id: string) {
+  const response = await axiosClient.post(API_URL + `/${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + userToken.token,
+    },
+  });
+
+  return response.data;
+}
 
 async function deleteList(userToken: UserToken, id: string) {
   const response = await axiosClient.delete(API_URL + `/${id}`, {
@@ -57,6 +77,7 @@ async function deleteList(userToken: UserToken, id: string) {
 }
 
 const listsService = {
+  getList,
   getLists,
   createList,
   updateList,

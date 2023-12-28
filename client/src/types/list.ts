@@ -1,6 +1,6 @@
 import { Movie } from "./movie";
 
-export type List = {
+export type ListType = {
   _id: string;
   createdAt?: string;
   list_description?: string;
