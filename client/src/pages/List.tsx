@@ -53,7 +53,7 @@ function List() {
     // response
     //   .then((v) => {
     //     console.log(v);
-    //     toast.success("List deleted successfully!");
+    //     toast.success("List updated successfully!");
     //     navigate("/");
     //   })
     //   .catch(() => {});
@@ -71,30 +71,42 @@ function List() {
   }
 
   return (
-    <div className="flex relative flex-col items-center gap-2">
-      <span className="text-4xl underline">{movies.list_name}</span>
-      <span className="text-xl">{movies.list_description}</span>
-      <div>
-        Created: {new Date(movies.createdAt).toString().substring(3, 15)} | Last
-        Updated: {new Date(movies.updatedAt).toString().substring(3, 15)}
+    <div className="flex flex-col max-w-5xl items-center gap-2">
+      <div className="flex flex-col items-center">
+        <span className="text-4xl font-bold">{movies.list_name}</span>
+        <span className="text-xl">{movies.list_description}</span>
       </div>
-      <div className="flex flex-col gap-2 w-3/4 max-w-5xl items-center">
+      <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col items-center">
+          <div className="flex flex-col">
+            <span>
+              Created - {new Date(movies.createdAt).toString().substring(3, 15)}
+            </span>
+            <span>
+              Updated -{new Date(movies.updatedAt).toString().substring(3, 15)}
+            </span>
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <button
+            className="border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
+            onClick={updateList}
+          >
+            Update List
+          </button>
+          <button
+            className="border-2 bg-red-800 rounded-md p-1 transition-all hover:bg-red-600"
+            onClick={deleteList}
+          >
+            Delete List
+          </button>
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 w-full items-center">
         {movies.movies.map((movie) => (
           <MovieCard movie={movie} />
         ))}
       </div>
-      <button
-        className="absolute top-2 right-32 border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
-        onClick={deleteList}
-      >
-        Delete List
-      </button>
-      <button
-        className="absolute top-2 left-32 border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
-        onClick={updateList}
-      >
-        Update List
-      </button>
     </div>
   );
 }
