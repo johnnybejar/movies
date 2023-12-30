@@ -74,10 +74,12 @@ function List() {
   return (
     <div className="flex flex-col max-w-5xl items-center gap-2">
       <Routes>
-        <Route path="/update" element={<ListUpdate list={movies} />} />
+        <Route path="/update" element={<ListUpdate />} />
       </Routes>
       <div className="flex flex-col items-center">
-        <span className="text-4xl font-bold">{movies.list_name}</span>
+        <span className="text-4xl text-center font-bold">
+          {movies.list_name}
+        </span>
         <span className="text-xl">{movies.list_description}</span>
       </div>
       <div className="flex items-center justify-between w-full">

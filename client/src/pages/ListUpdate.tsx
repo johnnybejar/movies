@@ -9,11 +9,7 @@ import { ListType } from "../types/list";
 import PageNotFound from "./PageNotFound";
 import listsService from "../features/lists/listsService";
 
-type ListUpdateProps = {
-  list: ListType;
-};
-
-function ListUpdate(props: ListUpdateProps) {
+function ListUpdate() {
   const [list, setList] = useState(useLocation().state as ListType);
   const [movies, setMovies] = useState<Movie[]>(list.movies);
   const [title, setTitle] = useState(list.list_name);
@@ -93,6 +89,24 @@ function ListUpdate(props: ListUpdateProps) {
 
   const onChange = (e: React.ChangeEvent, setter: Function) => {
     const element = e.currentTarget as HTMLInputElement;
+
+    switch (setter) {
+      case setTitle:
+        if (element.value.length >= 64) {
+          setter(() => element.value.substring(0, 64));
+          return;
+        }
+        break;
+      case setDescription:
+        if (element.value.length >= 512) {
+          setter(() => element.value.substring(0, 512));
+          return;
+        }
+        break;
+      default:
+        break;
+    }
+
     setter(() => element.value);
   };
 

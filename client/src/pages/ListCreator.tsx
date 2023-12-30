@@ -85,6 +85,18 @@ function ListCreator() {
 
   const onChange = (e: React.ChangeEvent, setter: Function) => {
     const element = e.currentTarget as HTMLInputElement;
+
+    switch (setter) {
+      case setTitle:
+        if (element.value.length === 64) return;
+        break;
+      case setDescription:
+        if (element.value.length === 512) return;
+        break;
+      default:
+        break;
+    }
+
     setter(() => element.value);
   };
 
