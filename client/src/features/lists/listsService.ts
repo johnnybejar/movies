@@ -54,13 +54,23 @@ async function createList(
   return response.data;
 }
 
-async function updateList(userToken: UserToken, id: string) {
-  const response = await axiosClient.post(API_URL + `/${id}`, {
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer " + userToken.token,
-    },
-  });
+async function updateList(
+  userToken: UserToken,
+  id: string,
+  listName: string,
+  listDescription: string,
+  movies: Movie[]
+) {
+  const response = await axiosClient.post(
+    API_URL + `/${id}`,
+    { listName, listDescription, movies },
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + userToken.token,
+      },
+    }
+  );
 
   return response.data;
 }

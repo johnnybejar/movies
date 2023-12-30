@@ -8,12 +8,10 @@ import ListCreator from "./pages/ListCreator";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import List from "./pages/List";
-import { createContext } from "react";
 import PageNotFound from "./pages/PageNotFound";
+import ListUpdate from "./pages/ListUpdate";
 
 function App() {
-  const ListContext = createContext<unknown>({});
-
   return (
     <>
       <BrowserRouter>
@@ -25,8 +23,12 @@ function App() {
               <Route path="/login" element={<Login />}></Route>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/create" element={<ListCreator />}></Route>
-              <Route path="/list" element={<List />}></Route>
-              <Route path="*" element={<PageNotFound />} />
+              <Route path="/list/*" element={<List />}></Route>
+              <Route
+                path="/list/update"
+                element={<ListUpdate list={{ _id: "" }} />}
+              ></Route>
+              {/* <Route path="*" element={<PageNotFound />} /> */}
             </Routes>
           </div>
         </div>

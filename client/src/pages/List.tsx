@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import PageNotFound from "./PageNotFound";
 import listsService from "../features/lists/listsService";
-import { useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ListType } from "../types/list";
 import { MoonLoader } from "react-spinners";
+import ListUpdate from "./ListUpdate";
 
 function List() {
   const [movies, setMovies] = useState<ListType>({ _id: "" });
@@ -72,6 +73,9 @@ function List() {
 
   return (
     <div className="flex flex-col max-w-5xl items-center gap-2">
+      <Routes>
+        <Route path="/update" element={<ListUpdate list={movies} />} />
+      </Routes>
       <div className="flex flex-col items-center">
         <span className="text-4xl font-bold">{movies.list_name}</span>
         <span className="text-xl">{movies.list_description}</span>
@@ -88,12 +92,19 @@ function List() {
           </div>
         </div>
         <div className="flex flex-col gap-1">
-          <button
+          <Link
             className="border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
-            onClick={updateList}
+            to="/list/update"
+            state={movies}
           >
+            {/* <button
+              className="border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
+              onClick={updateList}
+            >
+              Update List
+            </button> */}
             Update List
-          </button>
+          </Link>
           <button
             className="border-2 bg-red-800 rounded-md p-1 transition-all hover:bg-red-600"
             onClick={deleteList}
