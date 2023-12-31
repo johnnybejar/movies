@@ -9,17 +9,23 @@ type MovieCardProps = {
 
 function MovieCard(props: MovieCardProps) {
   const imgBaseUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/";
+  const imgRef = "https://www.themoviedb.org/movie/" + props.movie.id;
 
   return (
     <div className="flex items-center gap-3 bg-slate-700 p-3 max-h-60">
-      <img
-        src={imgBaseUrl + props.movie.poster_path}
-        alt={props.movie.title}
-        className="h-46 w-32"
-      ></img>
+      <a className="" href={imgRef} target="_blank">
+        <img
+          src={imgBaseUrl + props.movie.poster_path}
+          alt={props.movie.title}
+          className="max-w-32"
+        ></img>
+      </a>
       <div className="flex flex-col items-start gap-1 pl-1 max-h-52">
         <div>
-          <span className="text-center underline">{props.movie.title}</span>
+          <span className="text-center underline font-bold">
+            {props.movie.title}
+          </span>
+          <span> ({props.movie.release_date.substring(0, 4)})</span>
         </div>
         <span>
           {props.movie.genre_ids.map(
