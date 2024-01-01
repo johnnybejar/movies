@@ -153,6 +153,16 @@ function ListCreator() {
             Search
           </button>
         </div>
+        {results.length === 0 ? (
+          <></>
+        ) : (
+          <button
+            className="bg-white text-black rounded-sm px-4 py-2 mt-4 hover:bg-gray-300 transition-all"
+            onClick={() => setResults([])}
+          >
+            Clear Results
+          </button>
+        )}
       </div>
       {list.length === 0 ? (
         <button

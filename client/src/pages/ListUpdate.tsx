@@ -164,6 +164,16 @@ function ListUpdate() {
           </button>
         </div>
       </div>
+      {results.length === 0 ? (
+        <></>
+      ) : (
+        <button
+          className="bg-white text-black rounded-sm px-4 py-2 hover:bg-gray-300 transition-all"
+          onClick={() => setResults([])}
+        >
+          Clear Results
+        </button>
+      )}
       {list.movies.length === 0 ? (
         <button
           className=" bg-gray-500 text-gray-900 rounded-sm py-2 px-4 cursor-default transition-all"
