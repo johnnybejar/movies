@@ -11,6 +11,11 @@ import listsService from "../features/lists/listsService";
 
 function ListUpdate() {
   const [list, setList] = useState(useLocation().state as ListType);
+
+  if (!list || !list._id) {
+    return <PageNotFound />;
+  }
+
   const [movies, setMovies] = useState<Movie[]>(list.movies);
   const [title, setTitle] = useState(list.list_name);
   const [description, setDescription] = useState(list.list_description);
@@ -109,10 +114,6 @@ function ListUpdate() {
 
     setter(() => element.value);
   };
-
-  if (!list._id) {
-    return <PageNotFound />;
-  }
 
   return (
     <>
