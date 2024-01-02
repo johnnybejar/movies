@@ -13,6 +13,8 @@ function List() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const queryParameters = new URLSearchParams(window.location.search);
+  const createdDate = new Date(movies.createdAt).toString().split(" ");
+  const updatedDate = new Date(movies.updatedAt).toString().split(" ");
 
   useEffect(() => {
     const response = listsService.getList(
@@ -46,21 +48,6 @@ function List() {
       .catch(() => {});
   }
 
-  function updateList() {
-    // const response = listsService.updateList(
-    //   JSON.parse(localStorage.getItem("user")),
-    //   movies._id
-    // );
-    // response
-    //   .then((v) => {
-    //     console.log(v);
-    //     toast.success("List updated successfully!");
-    //     navigate("/");
-    //   })
-    //   .catch(() => {});
-    console.log("update");
-  }
-
   if (loading) {
     return <MoonLoader color="white" size={120} />;
   }
@@ -82,14 +69,16 @@ function List() {
         </span>
         <span className="text-xl">{movies.list_description}</span>
       </div>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-end justify-between w-full">
         <div className="flex flex-col items-center">
           <div className="flex flex-col">
             <span>
-              Created - {new Date(movies.createdAt).toString().substring(3, 15)}
+              Created:
+              {` ${createdDate[1]} ${createdDate[2]}, ${createdDate[3]}`}
             </span>
             <span>
-              Updated -{new Date(movies.updatedAt).toString().substring(3, 15)}
+              Updated:
+              {` ${updatedDate[1]} ${updatedDate[2]}, ${updatedDate[3]}`}
             </span>
           </div>
         </div>
@@ -99,12 +88,6 @@ function List() {
             to="/list/update"
             state={movies}
           >
-            {/* <button
-              className="border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
-              onClick={updateList}
-            >
-              Update List
-            </button> */}
             Update List
           </Link>
           <button
