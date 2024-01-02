@@ -12,7 +12,7 @@ function MovieCard(props: MovieCardProps) {
   const imgRef = "https://www.themoviedb.org/movie/" + props.movie.id;
 
   return (
-    <div className="flex items-center gap-3 bg-slate-700 p-3 max-h-60">
+    <div className="flex items-center gap-3 bg-slate-700 p-3 max-h-60 rounded">
       <a className="" href={imgRef} target="_blank">
         <img
           src={imgBaseUrl + props.movie.poster_path}
@@ -36,10 +36,10 @@ function MovieCard(props: MovieCardProps) {
         </span>
         <div className="flex gap-1 items-center">
           <IoMdStar />
-          <span className="text-center">
-            {props.movie.vote_average.toFixed(1) +
-              ` (${props.movie.vote_count})`}
+          <span className="font-bold">
+            {props.movie.vote_average.toFixed(1)}
           </span>
+          <span>{` (${props.movie.vote_count})`}</span>
         </div>
         <span className="">
           {/* prevents movie descriptions that are too long from overflowing */}

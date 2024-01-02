@@ -8,7 +8,6 @@ import ListCreator from "./pages/ListCreator";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import List from "./pages/List";
-import PageNotFound from "./pages/PageNotFound";
 import ListUpdate from "./pages/ListUpdate";
 
 function App() {
@@ -24,10 +23,7 @@ function App() {
               <Route path="/register" element={<Register />}></Route>
               <Route path="/create" element={<ListCreator />}></Route>
               <Route path="/list/*" element={<List />}></Route>
-              <Route
-                path="/list/update"
-                element={<ListUpdate list={{ _id: "" }} />}
-              ></Route>
+              <Route path="/list/update" element={<ListUpdate />}></Route>
               {/* <Route path="*" element={<PageNotFound />} /> */}
             </Routes>
           </div>
