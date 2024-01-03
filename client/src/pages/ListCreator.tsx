@@ -181,6 +181,7 @@ function ListCreator() {
       )}
       <div className="flex gap-2 flex-wrap w-3/4 justify-center">
         {results.map((movie) => {
+          console.log(movie.release_date);
           return (
             <div
               key={movie.id}
@@ -195,7 +196,9 @@ function ListCreator() {
               <span className="w-44 text-center">
                 {/* puts the original title in parenthesis after, usually for foreign films */}
                 {/* TODO: Handle titles that are extremely long */}
-                {`${movie.title} - ${movie.release_date.slice(0, 4)}`}
+                {`${movie.title} - ${
+                  movie.release_date ? movie.release_date.slice(0, 4) : "N/A"
+                }`}
               </span>
             </div>
           );

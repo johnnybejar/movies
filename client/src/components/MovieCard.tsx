@@ -17,7 +17,7 @@ function MovieCard(props: MovieCardProps) {
         <img
           src={imgBaseUrl + props.movie.poster_path}
           alt={props.movie.title}
-          className="max-w-32"
+          className="max-w-32 w-32"
         ></img>
       </a>
       <div className="flex flex-col items-start gap-1 pl-1 max-h-52">
@@ -25,7 +25,14 @@ function MovieCard(props: MovieCardProps) {
           <span className="text-center underline font-bold">
             {props.movie.title}
           </span>
-          <span> ({props.movie.release_date.substring(0, 4)})</span>
+          <span>
+            {" "}
+            (
+            {props.movie.release_date
+              ? props.movie.release_date.slice(0, 4)
+              : "N/A"}
+            )
+          </span>
         </div>
         <span>
           {props.movie.genre_ids.map(

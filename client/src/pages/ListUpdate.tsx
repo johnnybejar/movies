@@ -206,7 +206,9 @@ function ListUpdate() {
               <span className="w-44 text-center">
                 {/* puts the original title in parenthesis after, usually for foreign films */}
                 {/* TODO: Handle titles that are extremely long */}
-                {`${movie.title} - ${movie.release_date.slice(0, 4)}`}
+                {`${movie.title} - ${
+                  movie.release_date ? movie.release_date.slice(0, 4) : "N/A"
+                }`}
               </span>
             </div>
           );
