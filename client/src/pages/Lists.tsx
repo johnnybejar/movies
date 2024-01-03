@@ -44,9 +44,16 @@ function Lists() {
 
   if (!loading && lists.length === 0) {
     return (
-      <span className="text-3xl">
-        You don't have any lists! Click the button above to create one!
-      </span>
+      <>
+        <div>
+          <button className="bg-white text-black rounded p-2 hover:bg-gray-300 transition-all">
+            <Link to="/create">Create a list</Link>
+          </button>
+        </div>
+        <span className="text-3xl">
+          You don't have any lists! Click the button above to create one!
+        </span>
+      </>
     );
   }
 
