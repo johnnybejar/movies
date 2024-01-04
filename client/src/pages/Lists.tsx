@@ -79,8 +79,7 @@ function Lists() {
                   {list.movies.length} movies
                 </span>
                 <div className="flex gap-2 mt-1 justify-center">
-                  {list.movies.slice(0, 3).map((movie, index) => {
-                    if (index > 2) return;
+                  {list.movies.slice(0, 3).map((movie) => {
                     return (
                       <img
                         className="w-24 border"
