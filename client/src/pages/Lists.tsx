@@ -9,6 +9,7 @@ import { MoonLoader } from "react-spinners";
 function Lists() {
   const [lists, setLists] = useState<ListType[]>([]);
   const [loading, setLoading] = useState(true);
+  const imgBaseUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/";
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,30 +65,30 @@ function Lists() {
           <Link to="/create">Create a list</Link>
         </button>
       </div>
-      <div className="flex flex-wrap w-full">
-        <div className="flex flex-col items-center w-full gap-3">
+      <div className="flex flex-wrap">
+        <div className="flex flex-col items-center gap-3">
           {lists.map((list) => {
-            const created = new Date(list.createdAt).toString().split(" ");
-            const updated = new Date(list.updatedAt).toString().split(" ");
-
             return (
               <Link
                 to={{ pathname: `/list`, search: "?id=" + list._id }}
                 key={list._id}
-                className="flex flex-col bg-slate-700 p-2 rounded-sm min-w-full border border-gray-500 border-transparent transition-all hover:border-white"
+                className="flex flex-col items-center gap-1 w-full bg-slate-700 p-2 rounded-sm border border-gray-500 border-transparent transition-all hover:border-white"
               >
-                <h3 className="text-2xl">{list.list_name}</h3>
+                <h3 className="text-3xl">{list.list_name}</h3>
                 <span className="text-gray-300">
                   {list.movies.length} movies
                 </span>
-                <span className="text-gray-300">
-                  {`Created:
-                  ${created[1]} ${created[2]}, ${created[3]}`}
-                </span>
-                <span className="text-gray-300">
-                  {`Updated:
-                  ${updated[1]} ${updated[2]}, ${updated[3]}`}
-                </span>
+                <div className="flex gap-2 mt-1 justify-center">
+                  {list.movies.slice(0, 3).map((movie, index) => {
+                    if (index > 2) return;
+                    return (
+                      <img
+                        className="w-24 border"
+                        src={imgBaseUrl + movie.poster_path}
+                      />
+                    );
+                  })}
+                </div>
               </Link>
             );
           })}
