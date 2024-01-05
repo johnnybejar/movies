@@ -20,6 +20,7 @@ function Header() {
 
   function logout() {
     setAuth({});
+    setUser({ name: "" });
     authService.logout();
   }
 
