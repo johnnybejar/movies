@@ -6,6 +6,7 @@ import { Movie } from "../types/movie";
 import MovieCard from "../components/MovieCard";
 import listsService from "../features/lists/listsService";
 import { useNavigate } from "react-router-dom";
+import { MoonLoader } from "react-spinners";
 
 function ListCreator() {
   const [list, setList] = useState<Movie[]>([]);
@@ -101,7 +102,7 @@ function ListCreator() {
   };
 
   if (isLoadingResults) {
-    return <>Loading...</>;
+    return <MoonLoader />;
   }
 
   return (

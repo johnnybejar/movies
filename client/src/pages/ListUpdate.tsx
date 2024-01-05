@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Movie } from "../types/movie";
 import { useLocation, useNavigate } from "react-router-dom";
 import searchMovie from "../features/lists/searchService";
@@ -8,6 +8,7 @@ import MovieCard from "../components/MovieCard";
 import { ListType } from "../types/list";
 import PageNotFound from "./PageNotFound";
 import listsService from "../features/lists/listsService";
+import { MoonLoader } from "react-spinners";
 
 function ListUpdate() {
   const [list, setList] = useState(useLocation().state as ListType);
@@ -114,6 +115,10 @@ function ListUpdate() {
 
     setter(() => element.value);
   };
+
+  if (isLoadingResults) {
+    return <MoonLoader />;
+  }
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import Lists from "./pages/Lists";
 import Login from "./pages/Login";
@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import List from "./pages/List";
 import ListUpdate from "./pages/ListUpdate";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
               <Route path="/create" element={<ListCreator />}></Route>
               <Route path="/list/*" element={<List />}></Route>
               <Route path="/list/update" element={<ListUpdate />}></Route>
-              {/* <Route path="*" element={<PageNotFound />} /> */}
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>
         </div>

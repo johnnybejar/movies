@@ -1,4 +1,3 @@
-import React from "react";
 import { IoMdStar } from "react-icons/io";
 import { genres } from "../data/genres";
 import { Movie } from "../types/movie";

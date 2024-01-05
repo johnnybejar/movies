@@ -69,7 +69,6 @@ function Register() {
         navigate("/");
       })
       .catch((err: IAxiosError) => {
-        console.log(err);
         if (
           axios.isAxiosError<IAxiosError, Record<string, unknown>>(err) &&
           err.response.data.message == "User already exists"

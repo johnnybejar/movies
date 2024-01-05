@@ -82,6 +82,7 @@ function Lists() {
                   {list.movies.slice(0, 3).map((movie) => {
                     return (
                       <img
+                        key={movie.id}
                         className="w-24 border"
                         src={imgBaseUrl + movie.poster_path}
                       />
