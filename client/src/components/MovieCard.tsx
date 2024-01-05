@@ -16,7 +16,7 @@ function MovieCard(props: MovieCardProps) {
         <img
           src={imgBaseUrl + props.movie.poster_path}
           alt={props.movie.title}
-          className="max-w-32 w-32"
+          className="max-w-32 w-32 h-48"
         ></img>
       </a>
       <div className="flex flex-col items-start gap-1 pl-1 max-h-52">
