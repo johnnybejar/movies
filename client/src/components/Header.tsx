@@ -1,26 +1,19 @@
 import { Link } from "react-router-dom";
 import authService from "../features/auth/authService";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../context/AuthProvider";
-
-type User = {
-  name: string;
-  email?: string;
-  token?: string;
-};
+import { User } from "../types/user";
 
 function Header() {
   const { auth, setAuth } = useAuth();
-  const [user, setUser] = useState<User>({ name: "" });
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("user")))
-      setUser(JSON.parse(localStorage.getItem("user")));
-  }, [auth]);
+    if (localStorage.getItem("user"))
+      setAuth(JSON.parse(localStorage.getItem("user")) as User);
+  }, []);
 
   function logout() {
-    setAuth({});
-    setUser({ name: "" });
+    setAuth({ name: "" } as User);
     authService.logout();
   }
 
@@ -32,12 +25,12 @@ function Header() {
       </Link>
       <ul className="flex gap-20 mr-4">
         <li className="text-3xl border-b-2">
-          {user.name ? <span>Hello, {user.name}!</span> : <></>}
+          {auth.name ? <span>Hello, {auth.name}!</span> : <></>}
         </li>
         <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
           <Link to="/">Lists</Link>
         </li>
-        {user.name ? (
+        {auth.name ? (
           <>
             <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
               <Link to="/login" onClick={logout}>

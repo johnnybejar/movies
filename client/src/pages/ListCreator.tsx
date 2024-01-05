@@ -182,7 +182,6 @@ function ListCreator() {
       )}
       <div className="flex gap-2 flex-wrap w-3/4 justify-center">
         {results.map((movie) => {
-          console.log(movie.release_date);
           return (
             <div
               key={movie.id}
@@ -213,7 +212,7 @@ function ListCreator() {
         ) : (
           list.map((movie) => {
             return (
-              <div className="relative">
+              <div className="relative min-w-full" key={movie.id}>
                 <MovieCard movie={movie} />
                 <button
                   className="absolute top-2 right-2 border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"

@@ -46,10 +46,10 @@ function Login() {
     res
       .then((res) => {
         // 200 OK - we can setAuth and redirect the user to their lists page
-        setAuth({ email: res.email, token: res.token });
+        setAuth({ name: res.name, email: res.email, token: res.token });
         navigate("/");
       })
-      .catch((err: AxiosError) => {
+      .catch(() => {
         setError("Invalid credentials! Try again.");
       });
   };

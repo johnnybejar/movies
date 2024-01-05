@@ -1,17 +1,18 @@
 import { createContext, useState, useContext } from "react";
+import { User } from "../types/user";
 
 interface Auth {
-  auth: Object;
-  setAuth: (a: Object) => void;
+  auth: User;
+  setAuth: (a: User) => void;
 }
 
 const AuthContext = createContext<Auth>({
-  auth: {},
+  auth: {} as User,
   setAuth: () => {},
 });
 
 export function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useState({} as User);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

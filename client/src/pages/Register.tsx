@@ -65,13 +65,13 @@ function Register() {
     res
       .then((res) => {
         // 200 OK - we can setAuth and redirect the user to their lists page
-        setAuth({ email: res.email, token: res.token });
+        setAuth({ name: res.username, email: res.email, token: res.token });
         navigate("/");
       })
       .catch((err: IAxiosError) => {
         if (
           axios.isAxiosError<IAxiosError, Record<string, unknown>>(err) &&
-          err.response.data.message == "User already exists"
+          err.response.data.message === "User already exists"
         ) {
           setError("This email is taken! Try another or check for typos.");
         } else {
