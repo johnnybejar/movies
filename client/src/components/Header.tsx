@@ -18,21 +18,26 @@ function Header() {
   }
 
   return (
-    <div className="flex justify-between items-center mr-auto h-32 border-b border-b-slate-900 bg-slate-900">
+    <div className="flex justify-between items-center mr-auto h-32 max-sm:h-16 bg-slate-90 max-lg:flex-col">
       <Link to="/" className="flex items-center gap-1">
-        <img src="./assets/movie-icon.png" className=" max-h-20" />
-        <span className="font-bold text-5xl mr-auto">Film Docket</span>
+        <img
+          src="./assets/movie-icon.png"
+          className="max-h-20 max-sm:max-h-12"
+        />
+        <span className="font-bold text-5xl mr-auto max-sm:text-3xl">
+          Film Docket
+        </span>
       </Link>
-      <ul className="flex gap-20 mr-4">
-        <li className="text-3xl border-b-2">
+      <ul className="flex gap-20 mr-4 max-md:gap-4">
+        <li className="text-3xl max-sm:text-lg border-b">
           {auth.name ? <span>Hello, {auth.name}!</span> : <></>}
         </li>
-        <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
+        <li className="text-3xl max-sm:text-lg border-b border-transparent hover:border-white transition-all">
           <Link to="/">Lists</Link>
         </li>
         {auth.name ? (
           <>
-            <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
+            <li className="text-3xl max-sm:text-lg border-b border-transparent hover:border-white transition-all">
               <Link to="/login" onClick={logout}>
                 Logout
               </Link>
@@ -40,10 +45,10 @@ function Header() {
           </>
         ) : (
           <>
-            <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
+            <li className="text-3xl max-sm:text-lg border-b border-slate-900 hover:border-white transition-all">
               <Link to="/login">Login</Link>
             </li>
-            <li className="text-3xl border-b border-slate-900 hover:border-white transition-all">
+            <li className="text-3xl max-sm:text-lg border-b border-slate-900 hover:border-white transition-all">
               <Link to="/register">Register</Link>
             </li>
           </>

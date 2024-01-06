@@ -210,7 +210,7 @@ function ListCreator() {
           );
         })}
       </div>
-      <div className="flex flex-col gap-2 w-1/2 max-w-3xl items-center">
+      <div className="flex flex-col gap-2 max-w-3xl items-center">
         {list.length === 0 && results.length === 0 ? (
           <span className=" text-2xl">
             Add a film by searching for a movie above!

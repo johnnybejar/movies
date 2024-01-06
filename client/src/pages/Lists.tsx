@@ -59,22 +59,24 @@ function Lists() {
   }
 
   return (
-    <div className="flex flex-col w-1/3 items-center gap-4">
-      <div>
+    <div className="flex flex-col w-full items-center gap-4">
+      <Link to="/create">
         <button className="bg-white text-black rounded p-2 hover:bg-gray-300 transition-all">
-          <Link to="/create">Create a list</Link>
+          Create a list
         </button>
-      </div>
+      </Link>
       <div className="flex flex-wrap">
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col flex-wrap justify-center items-center gap-3">
           {lists.map((list) => {
             return (
               <Link
                 to={{ pathname: `/list`, search: "?id=" + list._id }}
                 key={list._id}
-                className="flex flex-col items-center gap-1 w-full bg-slate-700 p-2 rounded-sm border border-gray-500 border-transparent transition-all hover:border-white"
+                className="flex flex-col items-center w-3/4 h-60 overflow-auto text-clip gap-1 px-8 bg-slate-700 p-2 rounded-sm border border-transparent transition-all hover:border-white"
               >
-                <h3 className="text-3xl">{list.list_name}</h3>
+                <h3 className="text-3xl mr-auto ml-auto whitespace-nowrap">
+                  {list.list_name}
+                </h3>
                 <span className="text-gray-300">
                   {list.movies.length} movies
                 </span>
@@ -94,31 +96,6 @@ function Lists() {
           })}
         </div>
       </div>
-      {/* <div className="flex flex-wrap">
-        <div className="flex flex-col items-center gap-3">
-          <div className="flex flex-col p-2 border rounded-md min-w-full hover:scale-105 transition-all">
-            <h3 className=" text-2xl">Watched movies</h3>
-            <span className=" text-gray-400">24 movies</span>
-            <span className=" text-gray-400">
-              Created: Jul. 20, 2023 | Updated: Aug. 12, 2023
-            </span>
-          </div>
-          <div className="flex flex-col p-2 border rounded-md min-w-full hover:scale-105 transition-all">
-            <h3 className=" text-2xl">Watched movies</h3>
-            <span className=" text-gray-400">24 movies</span>
-            <span className=" text-gray-400">
-              Created: Jul. 20, 2023 | Updated: Aug. 12, 2023
-            </span>
-          </div>
-          <div className="flex flex-col p-2 border rounded-md min-w-full hover:scale-105 transition-all">
-            <h3 className=" text-2xl">Watched movies</h3>
-            <span className=" text-gray-400">24 movies</span>
-            <span className=" text-gray-400">
-              Created: Jul. 20, 2023 | Updated: Aug. 12, 2023
-            </span>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

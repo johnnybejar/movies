@@ -126,7 +126,7 @@ function ListUpdate() {
         <div className="flex flex-col items-center gap-1">
           <span className="text-3xl">List Title</span>
           <input
-            className="rounded w-72 h-10 p-2 text-center text-black"
+            className="rounded w-72 max-sm:w-48 h-10 p-2 text-center text-black"
             type="text"
             id="list-title"
             name="list-title"
@@ -137,7 +137,7 @@ function ListUpdate() {
         <div className="flex flex-col items-center gap-1">
           <span className="text-3xl">List Description</span>
           <textarea
-            className="rounded w-96 h-24 p-1 max-h-48 min-h-12 text-black"
+            className="rounded w-96 max-sm:w-64 h-24 p-1 max-h-48 min-h-12 text-black"
             id="list-description"
             name="list-description"
             value={description}
@@ -219,7 +219,7 @@ function ListUpdate() {
           );
         })}
       </div>
-      <div className="flex flex-col gap-2 w-1/2 max-w-3xl items-center">
+      <div className="flex flex-col gap-2 max-w-3xl items-center">
         {movies.length === 0 && results.length === 0 ? (
           <span className=" text-2xl">
             Add a film by searching for a movie above!
