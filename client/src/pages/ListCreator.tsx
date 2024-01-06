@@ -89,10 +89,16 @@ function ListCreator() {
 
     switch (setter) {
       case setTitle:
-        if (element.value.length === 64) return;
+        if (element.value.length >= 64) {
+          setter(() => element.value.substring(0, 64));
+          return;
+        }
         break;
       case setDescription:
-        if (element.value.length === 512) return;
+        if (element.value.length >= 512) {
+          setter(() => element.value.substring(0, 512));
+          return;
+        }
         break;
       default:
         break;
