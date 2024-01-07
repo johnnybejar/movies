@@ -1,6 +1,4 @@
-import express from "express";
-import dotenv from "dotenv";
-import mongodb, { ObjectId, OptionalId } from "mongodb";
+import { ObjectId, OptionalId } from "mongodb";
 import connectDB from "../config/db";
 import asyncHandler from "express-async-handler";
 import { List } from "../types/list";

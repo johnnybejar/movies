@@ -1,4 +1,4 @@
-import { WithId, Document, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { Movie } from "./movie";
 
 export type List = {

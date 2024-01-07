@@ -11,7 +11,7 @@ import listsService from "../features/lists/listsService";
 import { MoonLoader } from "react-spinners";
 
 function ListUpdate() {
-  const [list, setList] = useState(useLocation().state as ListType);
+  const [list] = useState(useLocation().state as ListType);
 
   if (!list || !list._id) {
     return <PageNotFound />;
@@ -84,7 +84,7 @@ function ListUpdate() {
     );
 
     res
-      .then((v) => {
+      .then(() => {
         toast.success(`List ${title} updated successfully!`);
         navigate(`/list?id=${list._id}`);
       })
@@ -93,7 +93,7 @@ function ListUpdate() {
       });
   }
 
-  const onChange = (e: React.ChangeEvent, setter: Function) => {
+  const onChange = (e: React.ChangeEvent, setter: (s) => void) => {
     const element = e.currentTarget as HTMLInputElement;
 
     switch (setter) {

@@ -30,6 +30,7 @@ function Lists() {
         })
         .catch((err: AxiosError) => {
           // If the user is not authorized or the token is invalid/expired
+          console.log(err);
           if (err.response.status == 401) {
             localStorage.removeItem("user");
             navigate("/login");
@@ -52,7 +53,7 @@ function Lists() {
           </button>
         </div>
         <span className="text-3xl">
-          You don't have any lists! Click the button above to create one!
+          {"You don't have any lists! Click the button above to create one!"}
         </span>
       </>
     );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+// const API_KEY = import.meta.env.VITE_API_KEY;
 const ACCESS_TOKEN = import.meta.env.VITE_API_READ_ACCESS_TOKEN;
 
 const axiosClient = axios.create({

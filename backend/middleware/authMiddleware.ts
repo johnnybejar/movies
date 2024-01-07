@@ -39,7 +39,7 @@ export const protect = asyncHandler(
           _id: new ObjectId(decoded.id),
         });
 
-        req.user = doc as Object;
+        req.user = doc as object;
 
         delete req.user.password;
 

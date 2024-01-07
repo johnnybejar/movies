@@ -1,7 +1,6 @@
-import express from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import mongodb, { ObjectId, Timestamp } from "mongodb";
+import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import asyncHandler from "express-async-handler";
 import connectDB from "../config/db";
@@ -84,7 +83,7 @@ export const getUser = asyncHandler(async (req, res) => {
 });
 
 // Generate a JWT for the session
-let generateToken = (id: ObjectId) => {
+const generateToken = (id: ObjectId) => {
   if (process.env.JWT_SECRET) {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
   } else {

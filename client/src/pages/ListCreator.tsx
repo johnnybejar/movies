@@ -84,7 +84,7 @@ function ListCreator() {
       });
   }
 
-  const onChange = (e: React.ChangeEvent, setter: Function) => {
+  const onChange = (e: React.ChangeEvent, setter: (s) => void) => {
     const element = e.currentTarget as HTMLInputElement;
 
     switch (setter) {

@@ -12,7 +12,7 @@ function MovieCard(props: MovieCardProps) {
 
   return (
     <div className="flex w-full items-center gap-3 bg-slate-700 p-3 rounded">
-      <a className="" href={imgRef} target="_blank">
+      <a className="" href={imgRef} target="_blank" rel="noreferrer">
         <img
           src={imgBaseUrl + props.movie.poster_path}
           alt={props.movie.title}

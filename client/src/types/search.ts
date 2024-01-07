@@ -1,6 +1,6 @@
 export type Search = {
   page: number;
-  results: Array<{}>;
+  results: Array<object>;
   total_pages: number;
   total_results: number;
 };
