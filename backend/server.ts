@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -25,6 +26,19 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/users", userRoutes);
 app.use("/api/lists", listRoutes);
+
+// Serves the client
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, "../", "client", "build", "index.html")
+    )
+  );
+} else {
+  app.get("/", (req, res) => res.send("Not set to production"));
+}
 
 app.use(errorHandler);
 
