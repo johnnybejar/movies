@@ -228,7 +228,7 @@ function ListUpdate() {
           movies.map((movie) => {
             return (
               <div className="relative min-w-full" key={movie.id}>
-                <MovieCard movie={movie} />
+                <MovieCard {...movie} />
                 <button
                   className="absolute top-2 right-2 border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
                   onClick={() => {

@@ -100,7 +100,7 @@ function List() {
       </div>
       <div className="flex flex-col gap-2 w-full items-center">
         {movies.movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <MovieCard key={movie.id} {...movie} />
         ))}
       </div>
     </div>
