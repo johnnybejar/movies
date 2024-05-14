@@ -73,9 +73,9 @@ function Lists() {
               <Link
                 to={{ pathname: `/list`, search: "?id=" + list._id }}
                 key={list._id}
-                className="flex flex-col items-center w-3/4 h-60 overflow-auto text-clip gap-1 px-8 bg-slate-700 p-2 rounded-sm border border-transparent transition-all hover:border-white"
+                className="flex flex-col items-center w-full max-w-sm h-70 overflow-auto text-clip gap-1 px-8 bg-slate-700 p-2 rounded-lg border border-transparent transition-all hover:border-white"
               >
-                <h3 className="text-3xl mr-auto ml-auto whitespace-nowrap">
+                <h3 className="text-3xl text-center w-full mr-auto ml-auto truncate">
                   {list.list_name}
                 </h3>
                 <span className="text-gray-300">
