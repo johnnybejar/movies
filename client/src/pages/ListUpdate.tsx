@@ -230,7 +230,7 @@ function ListUpdate() {
               <div className="relative min-w-full" key={movie.id}>
                 <MovieCard {...movie} />
                 <button
-                  className="absolute top-2 right-2 border-2 bg-slate-700 rounded-md p-1 transition-all hover:bg-slate-600"
+                  className="absolute top-2 right-2 border-2 bg-red-800 rounded-md p-1 transition-all hover:bg-red-600"
                   onClick={() => {
                     // Removes the item clicked on by using filter
                     setMovies(movies.filter((m) => m.id !== movie.id));
