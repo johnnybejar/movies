@@ -72,12 +72,12 @@ function List() {
       <div className="flex items-end justify-between w-full">
         <div className="flex flex-col items-center">
           <div className="flex flex-col">
-            <span>
-              Created:
+            <span className="text-xl text-slate-200">
+              Created on
               {` ${createdDate[1]} ${createdDate[2]}, ${createdDate[3]}`}
             </span>
-            <span>
-              Updated:
+            <span className="text-xl text-slate-200">
+              Updated on
               {` ${updatedDate[1]} ${updatedDate[2]}, ${updatedDate[3]}`}
             </span>
           </div>
