@@ -18,7 +18,7 @@ function Header() {
   }
 
   return (
-    <div className="flex justify-between items-center mr-auto h-32 max-sm:h-16 bg-slate-900 border-b-2 max-lg:flex-col">
+    <div className="flex justify-between items-center mr-auto h-32 max-sm:h-20 bg-slate-900 border-b-2 max-lg:flex-col">
       <Link to="/" className="flex items-center gap-1">
         <img
           src="./assets/movie-icon.png"
