@@ -197,7 +197,7 @@ function ListCreator() {
               <img
                 src={imgBaseUrl + movie.poster_path}
                 alt={movie.title}
-                className="h-64 w-44 border-2 border-white hover:opacity-50 transition-all"
+                className="h-64 w-44 border-2 border-white cursor-pointer hover:opacity-50 transition-all"
               />
               <span className="w-44 text-center">
                 {/* puts the original title in parenthesis after, usually for foreign films */}
