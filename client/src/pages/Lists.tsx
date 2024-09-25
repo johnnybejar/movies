@@ -67,7 +67,7 @@ function Lists() {
         </button>
       </Link>
       <div className="flex flex-wrap">
-        <div className="flex flex-col flex-wrap justify-center items-center gap-3">
+        <div className="flex flex-wrap justify-center items-center max-w-7xl gap-3">
           {lists.map((list) => {
             return (
               <Link
