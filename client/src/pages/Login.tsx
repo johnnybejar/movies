@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import authService from "../features/auth/authService";
 import { useAuth } from "../context/AuthProvider";
+import { toast } from "react-toastify";
 
 interface UserData {
   email: string;
@@ -52,6 +53,11 @@ function Login() {
         setError("Invalid credentials! Try again.");
       });
   };
+
+  if (localStorage.getItem("user")) {
+    toast("You are already logged in!");
+    navigate("/");
+  }
 
   return (
     <>

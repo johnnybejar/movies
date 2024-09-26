@@ -31,9 +31,12 @@ function Lists() {
         .catch((err: AxiosError) => {
           // If the user is not authorized or the token is invalid/expired
           console.log(err);
-          if (err.response.status == 401) {
+          if (err.response && err.response.status == 401) {
             localStorage.removeItem("user");
             navigate("/login");
+            setLoading(false);
+          } else {
+            localStorage.removeItem("user");
             setLoading(false);
           }
         });
