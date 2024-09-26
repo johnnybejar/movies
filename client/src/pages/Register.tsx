@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { useAuth } from "../context/AuthProvider";
 import authService from "../features/auth/authService";
 import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 interface RegisterData {
   username: string;
@@ -79,6 +80,11 @@ function Register() {
         }
       });
   };
+
+  if (localStorage.getItem("user")) {
+    toast("You are already logged in!");
+    navigate("/");
+  }
 
   return (
     <>
